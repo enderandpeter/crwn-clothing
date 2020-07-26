@@ -7,7 +7,7 @@ interface DirectoryProps {
 
 }
 
-interface Section {
+export interface Section {
     title: string;
     imageUrl: string;
     id: number;
@@ -28,7 +28,7 @@ export class Directory extends Component<DirectoryProps, DirectoryState>{
                     title: 'hats',
                     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
                     id: 1,
-                    linkUrl: 'shop/hats'
+                    linkUrl: 'hats'
                 },
                 {
                     title: 'jackets',
@@ -64,12 +64,10 @@ export class Directory extends Component<DirectoryProps, DirectoryState>{
         return (
             <div className={'directory-menu'}>
                 {
-                    this.state.sections.map(({title, imageUrl, id, size}: Section) => (
+                    this.state.sections.map(({id, ...props}: Section) => (
                         <MenuItem
                             key={id}
-                            title={title}
-                            imageUrl={imageUrl}
-                            size={size}
+                            {...props}
                         />
                     ))
                 }
