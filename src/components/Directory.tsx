@@ -7,12 +7,15 @@ interface DirectoryProps {
 
 }
 
-export interface Section {
+export interface ProductEntity {
     title: string;
     imageUrl: string;
-    id: number;
     size?: string;
     linkUrl: string;
+}
+
+export interface Section extends ProductEntity{
+    id: number;
 }
 
 interface DirectoryState {

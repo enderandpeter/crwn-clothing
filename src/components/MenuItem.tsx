@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Section } from "./Directory";
+import {ProductEntity} from "./Directory";
 
 import '../styles/menu-item.scss';
 
-type MenuItemProps = Section & RouteComponentProps;
+type MenuItemProps = ProductEntity & RouteComponentProps & {key: number};
 
 export const MenuItem: React.FC<MenuItemProps> = ({title, imageUrl, size, history, linkUrl, match}) => {
     return (
