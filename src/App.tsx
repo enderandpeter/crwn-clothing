@@ -5,11 +5,11 @@ import Shoppage from './components/pages/Shoppage';
 import Header from "./components/Header";
 import SignInAndUp from "./components/pages/SignInAndUp";
 import { Route, Switch } from 'react-router-dom';
-import { auth } from './firebase/firebase.utils';
+import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 import firebase from "firebase";
 
 export interface AppState {
-    currentUser: null | firebase.User;
+    currentUser: null | {id: string} | firebase.UserInfo;
 }
 
 class App extends React.Component<any, AppState>{
@@ -22,11 +22,22 @@ class App extends React.Component<any, AppState>{
     }
     unsubscribeFromAuth: null | firebase.Unsubscribe = null;
     componentDidMount() {
-        this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-            this.setState({currentUser: user});
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+            if(userAuth){
+                const userRef = await createUserProfileDocument(userAuth, {});
 
-            console.log(user);
+                userRef?.onSnapshot(snapshot => {
+                    this.setState({
+                        currentUser: {
+                            id: snapshot.id,
+                            ...snapshot.data()
+                        }
+                    });
+                });
+            }
+            this.setState({currentUser: userAuth})
         })
+
     }
 
     componentWillUnmount() {
