@@ -2,9 +2,14 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './styles.scss';
+import { connect, ConnectedProps } from 'react-redux';
 import { auth } from '../../firebase/firebase.utils';
+import {RootState} from "../../redux/root-reducer";
 
-const Header: React.FC<any> = ({ currentUser }) => (
+type PropsFromRedux = ConnectedProps<typeof connector>
+type HeaderProps = PropsFromRedux;
+
+const Header: React.FC<HeaderProps> = ({ currentUser }) => (
     <div className={'header'}>
         <Link className={'logo-container'} to={'/'}>
             <Logo className={'logo'}></Logo>
@@ -22,4 +27,10 @@ const Header: React.FC<any> = ({ currentUser }) => (
     </div>
 )
 
-export default Header;
+const mapStateToProps = (state: RootState) => ({
+    currentUser: state.user.currentUser
+})
+
+const connector = connect(mapStateToProps);
+
+export default connector(Header);
