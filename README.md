@@ -1,3 +1,15 @@
+# Crown Clothing
+
+An example React app from [Complete React Developer in 2021 (w/ Redux, Hooks, GraphQL)](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/)
+
+## Setup
+
+The Create React App instructions below are still relevant. Here are some other things to keep in mind.
+
+### Configuration
+
+Copy `config.example.ts` to `config.ts` and set it with the values needed for the environment.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
