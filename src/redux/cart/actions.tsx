@@ -1,11 +1,25 @@
-export const TOGGLE_CART_HIDDEN = 'TOGGLE_CART_HIDDEN';
+import {AnyAction} from "redux";
+import {Product} from "../../data/shop.data";
 
-export interface ToggleCartAction {
+export const TOGGLE_CART_HIDDEN: string = 'TOGGLE_CART_HIDDEN';
+export const ADD_ITEM: string = 'ADD_ITEM';
+
+export interface ToggleCartAction extends AnyAction {
     type: typeof TOGGLE_CART_HIDDEN;
 }
 
-export type CartAction = ToggleCartAction;
+export interface AddItemAction extends AnyAction {
+    type: typeof ADD_ITEM;
+    payload?: Product
+}
 
-export const toggleCartHidden = () => ({
+export type CartAction = ToggleCartAction | AddItemAction;
+
+export const toggleCartHidden = (): ToggleCartAction => ({
     type: TOGGLE_CART_HIDDEN
 });
+
+export const addItem = (item: any): AddItemAction => ({
+    type: ADD_ITEM,
+    payload: item
+})
