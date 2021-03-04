@@ -4,17 +4,27 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './styles.scss';
 import { connect, ConnectedProps } from 'react-redux';
 import { auth } from '../../firebase/firebase.utils';
-import {RootState} from "../../redux/root-reducer";
 import CartIcon from "../CartIcon";
 import CartDropdown from "../CartDropdown";
+import { createStructuredSelector } from 'reselect';
+import { selectCartHidden } from '../../redux/cart/selectors';
+import { selectCurrentUser } from '../../redux/user/selectors';
+import {User} from "../../redux/user/reducer";
+import {RootState} from "../../redux/root-reducer";
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 type HeaderProps = PropsFromRedux;
 
+export interface HeaderSelection {
+    currentUser: User;
+    hidden: boolean;
+}
+
+// @ts-ignore
 const Header: React.FC<HeaderProps> = ({ currentUser, hidden }) => (
     <div className={'header'}>
         <Link className={'logo-container'} to={'/'}>
-            <Logo className={'logo'}></Logo>
+            <Logo className={'logo'} />
         </Link>
         <div className={'options'}>
             <Link className={'option'} to={'shop'}>SHOP</Link>
@@ -34,10 +44,10 @@ const Header: React.FC<HeaderProps> = ({ currentUser, hidden }) => (
     </div>
 )
 
-const mapStateToProps = ({user: { currentUser }, cart: { hidden }}: RootState) => ({
-    currentUser,
-    hidden
-})
+const mapStateToProps = createStructuredSelector<RootState, HeaderSelection>({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
+});
 
 const connector = connect(mapStateToProps);
 
