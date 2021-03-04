@@ -5,11 +5,13 @@ import './styles.scss';
 import { connect, ConnectedProps } from 'react-redux';
 import { auth } from '../../firebase/firebase.utils';
 import {RootState} from "../../redux/root-reducer";
+import CartIcon from "../CartIcon";
+import CartDropdown from "../CartDropdown";
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 type HeaderProps = PropsFromRedux;
 
-const Header: React.FC<HeaderProps> = ({ currentUser }) => (
+const Header: React.FC<HeaderProps> = ({ currentUser, hidden }) => (
     <div className={'header'}>
         <Link className={'logo-container'} to={'/'}>
             <Logo className={'logo'}></Logo>
@@ -24,11 +26,16 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => (
                     <Link className={'option'} to={'/signin'}>SIGN IN</Link>
             }
         </div>
+        <CartIcon />
+        {
+            !hidden && <CartDropdown />
+        }
     </div>
 )
 
-const mapStateToProps = (state: RootState) => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({user: { currentUser }, cart: { hidden }}: RootState) => ({
+    currentUser,
+    hidden
 })
 
 const connector = connect(mapStateToProps);
