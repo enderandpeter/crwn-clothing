@@ -1,4 +1,5 @@
 import {ADD_ITEM, CartAction, TOGGLE_CART_HIDDEN} from './actions';
+import { addItemToCart } from "./utils";
 
 export interface CartState {
     hidden: boolean;
@@ -20,10 +21,10 @@ const cartReducer = (state: CartState = INITIAL_STATE, action: CartAction) => {
         case ADD_ITEM:
             return {
                 ...state,
-                cartItems: [
-                    ...state.cartItems,
+                cartItems: addItemToCart(
+                    state.cartItems,
                     action.payload
-                ]
+                )
             }
         default:
             return state;
