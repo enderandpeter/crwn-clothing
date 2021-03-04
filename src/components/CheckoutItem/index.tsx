@@ -2,12 +2,21 @@ import React from 'react';
 
 import './styles.scss';
 import {Product} from "../../data/shop.data";
+import {connect, ConnectedProps} from "react-redux";
+import {Dispatch} from "redux";
+import {clearItemFromCart} from "../../redux/cart/actions";
 
-export interface CheckoutItemProps {
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export interface CheckoutItemData {
     cartItem: Product;
 }
 
-const CheckoutItem: React.FC<CheckoutItemProps> = ({ cartItem: { name, imageUrl, price, quantity } }) => (
+type CheckoutItemProps = CheckoutItemData & PropsFromRedux;
+
+const CheckoutItem: React.FC<CheckoutItemProps> = ({ cartItem, clearItem }) => {
+    const { name, imageUrl, price, quantity } = cartItem;
+    return (
     <div className='checkout-item'>
         <div className='image-container'>
             <img src={imageUrl} alt='item' />
@@ -15,8 +24,15 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({ cartItem: { name, imageUrl,
         <span className='name'>{name}</span>
         <span className='quantity'>{quantity}</span>
         <span className='price'>{price}</span>
-        <div className='remove-button'>&#10005;</div>
+        <div className='remove-button' onClick={() => clearItem(cartItem)}>&#10005;</div>
     </div>
-);
+    )
+}
 
-export default CheckoutItem;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    clearItem: (item: Product) => dispatch(clearItemFromCart(item))
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(CheckoutItem);
