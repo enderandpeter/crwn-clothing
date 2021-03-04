@@ -1,9 +1,10 @@
 import {ADD_ITEM, CartAction, TOGGLE_CART_HIDDEN} from './actions';
 import { addItemToCart } from "./utils";
+import {Product} from "../../data/shop.data";
 
 export interface CartState {
     hidden: boolean;
-    cartItems: any[];
+    cartItems: Product[];
 }
 
 const INITIAL_STATE = {

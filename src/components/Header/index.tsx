@@ -28,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser, hidden }) => (
         </div>
         <CartIcon />
         {
+            // @ts-ignore
             !hidden && <CartDropdown />
         }
     </div>
