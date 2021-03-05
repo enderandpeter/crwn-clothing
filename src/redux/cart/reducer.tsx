@@ -1,5 +1,5 @@
-import {ADD_ITEM, CartAction, CLEAR_ITEM_FROM_CART, TOGGLE_CART_HIDDEN} from './actions';
-import { addItemToCart } from "./utils";
+import {ADD_ITEM, CartAction, CLEAR_ITEM_FROM_CART, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './actions';
+import {addItemToCart, removeItemFromCart} from "./utils";
 import {Product} from "../../data/shop.data";
 
 export interface CartState {
@@ -27,6 +27,11 @@ const cartReducer = (state: CartState = INITIAL_STATE, action: CartAction) => {
                     action.payload
                 )
             }
+        case REMOVE_ITEM:
+            return {
+                ...state,
+                cartItems: removeItemFromCart(state.cartItems, action.payload)
+            };
         case CLEAR_ITEM_FROM_CART:
             return {
                 ...state,
