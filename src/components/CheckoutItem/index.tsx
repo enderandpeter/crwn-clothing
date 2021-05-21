@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './styles.scss';
-import {Product} from "../../data/shop.data";
+import {Product} from "../../redux/shop/shop.data";
 import {connect, ConnectedProps} from "react-redux";
 import {Dispatch} from "redux";
 import {addItem, clearItemFromCart, removeItem} from "../../redux/cart/actions";

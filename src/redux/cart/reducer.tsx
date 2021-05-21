@@ -1,6 +1,6 @@
 import {ADD_ITEM, CartAction, CLEAR_ITEM_FROM_CART, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './actions';
 import {addItemToCart, removeItemFromCart} from "./utils";
-import {Product} from "../../data/shop.data";
+import {Product} from "../../redux/shop/shop.data";
 
 export interface CartState {
     hidden: boolean;

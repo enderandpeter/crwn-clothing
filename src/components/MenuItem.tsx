@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import {ProductEntity} from "./Directory";
+import {ProductEntity} from "../redux/directory/reducer";
 
 import '../styles/menu-item.scss';
 

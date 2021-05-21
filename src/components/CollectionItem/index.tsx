@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import './styles.scss';
-import {Product} from "../../data/shop.data";
+import {Product} from "../../redux/shop/shop.data";
 import CustomButton from "../CustomButton";
 import { addItem } from "../../redux/cart/actions";
 import {Dispatch} from "redux";

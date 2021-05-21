@@ -10,7 +10,7 @@ import {
 } from '../../../redux/cart/selectors';
 
 import './styles.scss';
-import {Product} from "../../../data/shop.data";
+import {Product} from "../../../redux/shop/shop.data";
 import {RootState} from "../../../redux/root-reducer";
 
 type PropsFromRedux = ConnectedProps<typeof connector>

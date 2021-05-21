@@ -1,82 +1,38 @@
-import React, {Component} from 'react';
+import React from 'react';
 import MenuItem from '../components/MenuItem';
-
 import '../styles/directory.scss';
+import {Section} from "../redux/directory/reducer";
+import {connect, ConnectedProps} from 'react-redux';
+import { selectDirectorySections } from '../redux/directory/selectors'
+import { createStructuredSelector } from 'reselect';
+import {RootState} from "../redux/root-reducer";
 
-interface DirectoryProps {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type DirectoryProps = PropsFromRedux
 
-}
-
-export interface ProductEntity {
-    title: string;
-    imageUrl: string;
-    size?: string;
-    linkUrl: string;
-}
-
-export interface Section extends ProductEntity{
-    id: number;
-}
-
-interface DirectoryState {
+export interface DirectoryState {
     sections: Section[];
 }
 
-export class Directory extends Component<DirectoryProps, DirectoryState>{
-    constructor(props: DirectoryProps) {
-        super(props);
-        this.state = {
-            sections: [
-                {
-                    title: 'hats',
-                    imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-                    id: 1,
-                    linkUrl: 'shop/hats'
-                },
-                {
-                    title: 'jackets',
-                    imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                    id: 2,
-                    linkUrl: 'shop/jackets'
-                },
-                {
-                    title: 'sneakers',
-                    imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-                    id: 3,
-                    linkUrl: 'shop/sneakers'
-                },
-                {
-                    title: 'womens',
-                    imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-                    size: 'large',
-                    id: 4,
-                    linkUrl: 'shop/womens'
-                },
-                {
-                    title: 'mens',
-                    imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-                    size: 'large',
-                    id: 5,
-                    linkUrl: 'shop/mens'
-                }
-            ]
-        }
-    }
-
-    render(){
-        return (
-            <div className={'directory-menu'}>
-                {
-                    this.state.sections.map(({id, ...props}: Section) => (
-                        <MenuItem
-                            key={id}
-                            {...props}
-                        />
-                    ))
-                }
-            </div>
-        );
-    }
+export const Directory: React.FC<DirectoryProps> = ({ sections }) => {
+    return (
+        <div className={'directory-menu'}>
+            {
+                sections.map(({id, ...props}: Section) => (
+                    <MenuItem
+                        key={id}
+                        {...props}
+                    />
+                ))
+            }
+        </div>
+    );
 }
 
-export default Directory;
+const mapStateToProps = createStructuredSelector<RootState, DirectoryState>({
+    sections: selectDirectorySections
+});
+
+const connector = connect(mapStateToProps);
+
+export default connector(Directory);

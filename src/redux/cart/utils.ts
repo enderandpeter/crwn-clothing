@@ -1,4 +1,4 @@
-import {Product} from "../../data/shop.data";
+import {Product} from "../../redux/shop/shop.data";
 
 export const addItemToCart = (cartItems: Product[], cartItemToAdd: Product) => {
     const existingCartItem = cartItems.find(

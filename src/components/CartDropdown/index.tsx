@@ -9,7 +9,7 @@ import {RootState} from "../../redux/root-reducer";
 import CartItem from "../CartItem";
 import { selectCartItems } from '../../redux/cart/selectors';
 import {createStructuredSelector} from "reselect";
-import {Product} from "../../data/shop.data";
+import {Product} from "../../redux/shop/shop.data";
 import { toggleCartHidden } from "../../redux/cart/actions";
 
 type PropsFromRedux = ConnectedProps<typeof connector>

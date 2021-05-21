@@ -1,5 +1,5 @@
 import {AnyAction} from "redux";
-import {Product} from "../../data/shop.data";
+import {Product} from "../../redux/shop/shop.data";
 
 export const TOGGLE_CART_HIDDEN: string = 'TOGGLE_CART_HIDDEN';
 export const ADD_ITEM: string = 'ADD_ITEM';

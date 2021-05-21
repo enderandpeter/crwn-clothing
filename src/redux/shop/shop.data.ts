@@ -16,11 +16,11 @@ export interface Product extends ProductEntity{
   quantity?: number;
 }
 
-export type ShopData = Shop[];
+export type ShopData = typeof SHOP_DATA;
 
 /* Used as starting data for ShopPage */
-const SHOP_DATA: ShopData = [
-  {
+const SHOP_DATA = {
+  hats: {
     id: 1,
     title: 'Hats',
     routeName: 'hats',
@@ -81,7 +81,7 @@ const SHOP_DATA: ShopData = [
       }
     ]
   },
-  {
+  sneakers: {
     id: 2,
     title: 'Sneakers',
     routeName: 'sneakers',
@@ -136,7 +136,7 @@ const SHOP_DATA: ShopData = [
       }
     ]
   },
-  {
+  jackets: {
     id: 3,
     title: 'Jackets',
     routeName: 'jackets',
@@ -173,7 +173,7 @@ const SHOP_DATA: ShopData = [
       }
     ]
   },
-  {
+  womens: {
     id: 4,
     title: 'Womens',
     routeName: 'womens',
@@ -222,7 +222,7 @@ const SHOP_DATA: ShopData = [
       }
     ]
   },
-  {
+  mens: {
     id: 5,
     title: 'Mens',
     routeName: 'mens',
@@ -265,6 +265,6 @@ const SHOP_DATA: ShopData = [
       }
     ]
   }
-];
+};
 
 export default SHOP_DATA;
