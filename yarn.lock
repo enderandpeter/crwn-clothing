@@ -5934,11 +5934,13 @@ __metadata:
     firebase: ^7.19.1
     lodash.memoize: ^4.1.2
     node-sass: ^4.14.1
+    prop-types: ^15.7.2
     react: ^16.13.1
     react-dom: ^16.13.1
     react-redux: ^7.2.1
     react-router-dom: ^5.2.0
     react-scripts: 3.4.1
+    react-stripe-checkout: ^2.6.3
     redux: ^4.0.5
     redux-logger: ^3.0.6
     redux-persist: ^6.0.0
@@ -14013,6 +14015,13 @@ fsevents@~2.1.2:
   bin:
     react-scripts: ./bin/react-scripts.js
   checksum: 417fc7cfb3c7b632f8286e02febf2301ae4a4bc25299a9ef8662c777dcaef8de9d7f2320cd7491bf796674fa1de7d86fdb9e9a2852266167e19085dd78b15f79
+  languageName: node
+  linkType: hard
+
+"react-stripe-checkout@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "react-stripe-checkout@npm:2.6.3"
+  checksum: 4131fb1106de3f619a204263369e8bdf176c9f3c33a7bf284c3b43adb21cd29263ea0b16842e4a3903ad6583990d2e2e0a6fdf275fb3bb0a717619e6f68fe1b3
   languageName: node
   linkType: hard
 
