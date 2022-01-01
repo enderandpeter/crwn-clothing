@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import config from '../config';
+import {Shop} from "../redux/shop/shop.data";
 
 export const createUserProfileDocument = async (userAuth: firebase.UserInfo | null, additionalData: {}) => {
     if(!userAuth) return;
@@ -26,7 +27,38 @@ export const createUserProfileDocument = async (userAuth: firebase.UserInfo | nu
     return userRef;
 }
 
+export const addCollectionAndDocuments = async (collectionKey: string, objectsToAdd: Shop[] | undefined) => {
+    const collectionRef = firestore.collection(collectionKey);
+    console.log(collectionRef);
+
+    const batch = firestore.batch();
+    objectsToAdd?.forEach(obj => {
+        const newDocRef = collectionRef.doc();
+        batch.set(newDocRef, obj);
+    });
+
+    return await batch.commit();
+}
+
 firebase.initializeApp(config.firebase);
+
+export const convertCollectionsSnapshotToMap = (collections: firebase.firestore.QuerySnapshot) => {
+    const transformedCollection = collections.docs.map((doc) => {
+        const { title, items } = doc.data();
+
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items,
+        };
+    });
+
+    return transformedCollection.reduce((accumulator: {[key: string]: Shop}, collection: Shop) => {
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator;
+    }, {});
+}
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

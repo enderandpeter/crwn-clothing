@@ -1,5 +1,5 @@
 export interface Shop {
-  id: number;
+  id: number | string;
   title: string;
   routeName: string;
   items: Product[]
