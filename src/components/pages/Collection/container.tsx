@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import {compose} from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { selectIsCollectionsLoaded } from '../../../redux/shop/selectors'
@@ -8,7 +8,7 @@ import CollectionPage from './index';
 import {ShopState} from "../../../redux/shop/reducer";
 import {RootState} from "../../../redux/root-reducer";
 
-const mapStateToProps = createStructuredSelector<RootState, {isLoading: boolean}>({
+const mapStateToProps = createStructuredSelector<RootState, {}>({
     // @ts-ignore
     isLoading: (state: ShopState) => !selectIsCollectionsLoaded(state)
 });

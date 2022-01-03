@@ -29,11 +29,11 @@ class Shoppage extends React.Component<AppProps> {
         const {match} = this.props;
         return (
             <div className='shop-page'>
-                <Route exact path={`${match.path}`} commponent={CollectionsOverviewContainer} />
+                // @ts-ignore
+                <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
                 <Route
-                    path={`${match.path}/:collectionId`}
                     // @ts-ignore
-                    component={CollectionPageContainer}
+                   path={`${match.path}/:collectionId`} component={CollectionPageContainer}
                 />
             </div>
         );
