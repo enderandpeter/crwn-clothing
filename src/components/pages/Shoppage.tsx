@@ -5,10 +5,8 @@ import { Route, RouteComponentProps } from 'react-router-dom';
 
 import { connect, ConnectedProps } from "react-redux";
 
-import {Action} from "redux";
-import {fetchCollectionsStartAsync} from "../../redux/shop/actions";
-import {ThunkDispatch} from "redux-thunk";
-import {ShopState} from "../../redux/shop/reducer";
+import {Dispatch} from "redux";
+import {fetchCollectionsStart} from "../../redux/shop/actions";
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 type ShopPageProps = {
@@ -22,15 +20,17 @@ class Shoppage extends React.Component<AppProps> {
     };
     unsubscribeFromSnapshot: any = null;
     componentDidMount() {
-        const { fetchCollectionsStartAsync } = this.props;
-        fetchCollectionsStartAsync();
+        const { fetchCollectionsStart } = this.props;
+        fetchCollectionsStart();
     }
     render() {
         const {match} = this.props;
         return (
             <div className='shop-page'>
-                // @ts-ignore
-                <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
+                <Route
+                    exact
+                    // @ts-ignore
+                    path={`${match.path}`} component={CollectionsOverviewContainer} />
                 <Route
                     // @ts-ignore
                    path={`${match.path}/:collectionId`} component={CollectionPageContainer}
@@ -40,8 +40,8 @@ class Shoppage extends React.Component<AppProps> {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<ShopState, void, Action>) => ({
-    fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 });
 
 const connector = connect(null, mapDispatchToProps);

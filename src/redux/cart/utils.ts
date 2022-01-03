@@ -1,12 +1,14 @@
-import {Product} from "../../redux/shop/shop.data";
+import {Product} from "../shop/shop.data";
 
-export const addItemToCart = (cartItems: Product[], cartItemToAdd: Product) => {
+export const addItemToCart = (cartItems: Product[], cartItemToAdd: Product | undefined) => {
     const existingCartItem = cartItems.find(
+        // @ts-ignore
         cartItem => cartItem.id === cartItemToAdd.id
     );
 
     if (existingCartItem) {
         return cartItems.map(cartItem =>
+            // @ts-ignore
             (cartItem.id === cartItemToAdd.id) && cartItem.quantity
                 ? { ...cartItem, quantity: cartItem.quantity + 1 }
                 : cartItem

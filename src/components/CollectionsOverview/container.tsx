@@ -5,10 +5,13 @@ import { compose } from 'redux';
 import { selectIsCollectionFetching } from '../../redux/shop/selectors';
 import WithSpinner from "../WithSpinner";
 import CollectionsOverview from "./index";
+import {RootState} from "../../redux/root-reducer";
 
+export interface CollectionsSelection {
+    isLoading: boolean
+}
 
-const mapStateToProps = createStructuredSelector({
-    // @ts-ignore
+const mapStateToProps = createStructuredSelector<RootState, CollectionsSelection>({
     isLoading: selectIsCollectionFetching
 });
 

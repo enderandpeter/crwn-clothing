@@ -1,6 +1,6 @@
-import {ADD_ITEM, CartAction, CLEAR_ITEM_FROM_CART, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './actions';
+import {ADD_ITEM, CartAction, CLEAR_CART, CLEAR_ITEM_FROM_CART, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './actions';
 import {addItemToCart, removeItemFromCart} from "./utils";
-import {Product} from "../../redux/shop/shop.data";
+import {Product} from "../shop/shop.data";
 
 export interface CartState {
     hidden: boolean;
@@ -39,6 +39,11 @@ const cartReducer = (state: CartState = INITIAL_STATE, action: CartAction) => {
                     cartItem => cartItem.id !== action.payload.id
                 )
             };
+        case CLEAR_CART:
+            return {
+                ...state,
+                cartItems: []
+            }
         default:
             return state;
     }

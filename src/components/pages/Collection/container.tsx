@@ -7,8 +7,9 @@ import WithSpinner from "../../WithSpinner";
 import CollectionPage from './index';
 import {ShopState} from "../../../redux/shop/reducer";
 import {RootState} from "../../../redux/root-reducer";
+import {CollectionsSelection} from "../../CollectionsOverview/container";
 
-const mapStateToProps = createStructuredSelector<RootState, {}>({
+const mapStateToProps = createStructuredSelector<RootState, CollectionsSelection>({
     // @ts-ignore
     isLoading: (state: ShopState) => !selectIsCollectionsLoaded(state)
 });
