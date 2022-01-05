@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CollectionsOverviewContainer from "../CollectionsOverview/container";
 import CollectionPageContainer from "./Collection/container";
 import { Route, RouteComponentProps } from 'react-router-dom';
@@ -14,17 +14,10 @@ type ShopPageProps = {
 }
 type AppProps = PropsFromRedux & RouteComponentProps & ShopPageProps;
 
-class Shoppage extends React.Component<AppProps> {
-    state = {
-     loading: true
-    };
-    unsubscribeFromSnapshot: any = null;
-    componentDidMount() {
-        const { fetchCollectionsStart } = this.props;
+const Shoppage = ({fetchCollectionsStart, match}: AppProps) => {
+    useEffect(() => {
         fetchCollectionsStart();
-    }
-    render() {
-        const {match} = this.props;
+    }, [fetchCollectionsStart])
         return (
             <div className='shop-page'>
                 <Route
@@ -37,7 +30,6 @@ class Shoppage extends React.Component<AppProps> {
                 />
             </div>
         );
-    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

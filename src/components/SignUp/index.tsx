@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component, FormEvent} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import FormInput from "../FormInput";
 import CustomButton from "../CustomButton";
 
@@ -17,23 +17,18 @@ export interface SignUpState {
     confirmPassword: string;
 }
 
-class SignUp extends Component<SignUpProps, SignUpState> {
-    constructor(props: any) {
-        super(props);
+const SignUp = ({signUpStart}: SignUpProps) => {
+    const [userCredentials, setUserCredentials ] = useState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
 
-        this.state = {
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
-        }
-    }
+    const { displayName, email, password, confirmPassword } = userCredentials;
 
-    handleSubmit = async (event: FormEvent<HTMLElement>)  => {
+    const handleSubmit = async (event: FormEvent<HTMLElement>)  => {
         event.preventDefault()
-        const { signUpStart } = this.props;
-        const { displayName, email, password, confirmPassword } = this.state;
-
         if(password !== confirmPassword){
             alert('Passwords do not match')
             return;
@@ -42,24 +37,20 @@ class SignUp extends Component<SignUpProps, SignUpState> {
         signUpStart({ displayName, email, password});
     }
 
-    handleChange = (event: ChangeEvent)  => {
-        // @ts-ignore
-        const { name, value } = event.target;
-        // @ts-ignore
-        this.setState({ [name]: value })
+    const handleChange = (event: ChangeEvent)  => {
+        const { name, value } = event.target as HTMLInputElement;
+        setUserCredentials({ ...userCredentials, [name]: value })
     }
-    render(){
-        const { displayName, email, password, confirmPassword } = this.state;
         return (
             <div className={'sign-up'}>
                 <h2 className={'title'}>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
-                <form className={'sign-up-form'} onSubmit={this.handleSubmit}>
+                <form className={'sign-up-form'} onSubmit={handleSubmit}>
                     <FormInput
                         type={'text'}
                         name={'displayName'}
                         value={displayName}
-                        handleChange={this.handleChange}
+                        handleChange={handleChange}
                         label={'Display Name'}
                         required
                     />
@@ -67,7 +58,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
                         type={'email'}
                         name={'email'}
                         value={email}
-                        handleChange={this.handleChange}
+                        handleChange={handleChange}
                         label={'Email'}
                         required
                     />
@@ -75,7 +66,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
                         type={'password'}
                         name={'password'}
                         value={password}
-                        handleChange={this.handleChange}
+                        handleChange={handleChange}
                         label={'Password'}
                         required
                     />
@@ -83,7 +74,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
                         type={'password'}
                         name={'confirmPassword'}
                         value={confirmPassword}
-                        handleChange={this.handleChange}
+                        handleChange={handleChange}
                         label={'Confirm Password'}
                         required
                     />
@@ -91,7 +82,6 @@ class SignUp extends Component<SignUpProps, SignUpState> {
                 </form>
             </div>
         )
-    }
 }
 
 let mapDispatchToProps = (dispatch: Dispatch) => ({
