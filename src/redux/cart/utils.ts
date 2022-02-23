@@ -1,21 +1,19 @@
 import {Product} from "../shop/shop.data";
 
-export const addItemToCart = (cartItems: Product[], cartItemToAdd: Product | undefined) => {
+export const addItemToCart = (cartItems: Product[], cartItemToAdd: Product | undefined): Product[] => {
     const existingCartItem = cartItems.find(
-        // @ts-ignore
-        cartItem => cartItem.id === cartItemToAdd.id
+        cartItem => cartItem.id === cartItemToAdd?.id
     );
 
     if (existingCartItem) {
         return cartItems.map(cartItem =>
-            // @ts-ignore
-            (cartItem.id === cartItemToAdd.id) && cartItem.quantity
+            (cartItem.id === cartItemToAdd?.id) && cartItem.quantity
                 ? { ...cartItem, quantity: cartItem.quantity + 1 }
                 : cartItem
         );
     }
 
-    return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+    return [...cartItems, { ...cartItemToAdd, quantity: 1 } as Product];
 };
 
 export const removeItemFromCart = (cartItems: Product[], cartItemToRemove: Product) => {
